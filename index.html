@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Turrisiom - Explore the World with Us</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --text-light: #7f8c8d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            color: var(--primary-color);
+        }
+
+        h3 {
+            font-size: 1.8rem;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-accent {
+            background: var(--accent-color);
+        }
+
+        .btn-accent:hover {
+            background: #c0392b;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                url("https://images.unsplash.com/photo-1506929562872-bb421503ef21?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80") no-repeat center center/cover;
+            height: 100vh;
+            color: white;
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .hero .btn {
+            animation: fadeInUp 1s ease 0.4s forwards;
+            opacity: 0;
+        }
+
+        /* Search Form */
+        .search-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            animation: fadeInUp 1s ease 0.6s forwards;
+            opacity: 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        /* Features Section */
+        .features {
+            background: var(--light-color);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        /* Destinations Section */
+        .destinations .subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 50px;
+        }
+
+        .destination-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .destination-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .destination-img {
+            height: 250px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .destination-info {
+            padding: 20px;
+            background: white;
+        }
+
+        .destination-price {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+
+        .rating {
+            color: #f1c40f;
+            margin: 10px 0;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background: linear-gradient(rgba(44, 62, 80, 0.9),
+                    rgba(44, 62, 80, 0.9)),
+                url("https://images.unsplash.com/photo-1508672019048-805c876b67e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80") no-repeat center center/cover;
+            color: white;
+        }
+
+        .testimonials h2 {
+            color: white;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+
+        .author-info h4 {
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .author-info p {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            background: var(--light-color);
+            text-align: center;
+        }
+
+        .newsletter-form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            color: white;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h3::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--secondary-color);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #bdc3c7;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 40px 0;
+                transition: all 0.5s ease;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                width: 95%;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .btn {
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Turri<span>siom</span></a>
+                <div class="menu-toggle" id="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#destinations">Destinations</a></li>
+                    <li><a href="#packages">Packages</a></li>
+                    <li><a href="../roshan.html">About Us</a></li>
+                    <li><a href="../index.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Discover Your Dream Vacation</h1>
+                <p>
+                    Explore the world's most breathtaking destinations with our expertly
+                    crafted tours and travel packages.
+                </p>
+                <a href="#destinations" class="btn btn-accent">Explore Tours</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2>Why Choose Turrisiom</h2>
+            <p class="text-center">
+                We provide the best travel experiences with our exceptional services
+            </p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Worldwide Tours</h3>
+                    <p>
+                        Explore destinations across all continents with our carefully
+                        curated tours.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-hotel"></i>
+                    </div>
+                    <h3>Luxury Stays</h3>
+                    <p>
+                        Stay at the finest hotels and resorts selected for comfort and
+                        luxury.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3>Food & Dining</h3>
+                    <p>
+                        Experience local cuisines at the best restaurants with our food
+                        tours.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>
+                        Our dedicated support team is available round the clock to assist
+                        you.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Destinations Section -->
+    <section class="destinations" id="destinations">
+        <div class="container">
+            <h2>Popular Destinations</h2>
+            <p class="subtitle">
+                Explore our most popular travel destinations around the world
+            </p>
+
+            <div class="destination-grid">
+                <div class="destination-card">
+                    <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                        alt="Paris" class="destination-img" />
+                    <div class="destination-price">From $1,299</div>
+                    <div class="destination-info">
+                        <h3>Paris, France</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(124 reviews)</span>
+                        </div>
+                        <p>
+                            The city of love and lights, offering iconic landmarks and
+                            romantic experiences.
+                        </p>
+                        <a href="#" class="btn">View Tour</a>
+                    </div>
+                </div>
+
+                <div class="destination-card">
+                    <img src="https://images.unsplash.com/photo-1531572753322-ad063cecc140?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                        alt="Rome" class="destination-img" />
+                    <div class="destination-price">From $1,499</div>
+                    <div class="destination-info">
+                        <h3>Rome, Italy</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(98 reviews)</span>
+                        </div>
+                        <p>
+                            Explore ancient history, art, and delicious Italian cuisine in
+                            the Eternal City.
+                        </p>
+                        <a href="#" class="btn">View Tour</a>
+                    </div>
+                </div>
+
+                <div class="destination-card">
+                    <img src="https://images.unsplash.com/photo-1518544866338-178a9ee1df6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                        alt="Bali" class="destination-img" />
+                    <div class="destination-price">From $1,199</div>
+                    <div class="destination-info">
+                        <h3>Bali, Indonesia</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span>(156 reviews)</span>
+                        </div>
+                        <p>
+                            Tropical paradise with stunning beaches, lush jungles, and rich
+                            culture.
+                        </p>
+                        <a href="#" class="btn">View Tour</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center" style="margin-top: 40px">
+                <a href="#" class="btn btn-accent">View All Destinations</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2>What Our Travelers Say</h2>
+            <p class="text-center">
+                Hear from our satisfied customers about their experiences
+            </p>
+
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "The tour to Paris was absolutely amazing! Everything was
+                        perfectly organized, from the hotels to the guided tours. Will
+                        definitely travel with Turrisiom again."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah J." class="author-img" />
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>Paris Tour, June 2023</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Our family vacation to Bali was unforgettable. The team took care
+                        of every detail, and we could just relax and enjoy. Highly
+                        recommended!"
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Michael T." class="author-img" />
+                        <div class="author-info">
+                            <h4>Michael Thompson</h4>
+                            <p>Bali Family Package, April 2023</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "As a solo traveler, I was a bit nervous, but Turrisiom made
+                        everything so easy and safe. Met wonderful people and had the best
+                        time in Rome!"
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emily R." class="author-img" />
+                        <div class="author-info">
+                            <h4>Emily Rodriguez</h4>
+                            <p>Rome Solo Adventure, May 2023</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Stay Updated</h2>
+            <p>
+                Subscribe to our newsletter for exclusive deals and travel inspiration
+            </p>
+
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email address" required />
+                <button type="submit" class="btn btn-accent">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenu = document.getElementById("mobile-menu");
+        const navLinks = document.getElementById("nav-links");
+
+        mobileMenu.addEventListener("click", () => {
+            navLinks.classList.toggle("active");
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll(".nav-links a").forEach((link) => {
+            link.addEventListener("click", () => {
+                navLinks.classList.remove("active");
+            });
+        });
+
+        // Header scroll effect
+        const header = document.getElementById("header");
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 100) {
+                header.classList.add("scrolled");
+            } else {
+                header.classList.remove("scrolled");
+            }
+        });
+
+        // Form submission
+        const tourSearchForm = document.getElementById("tour-search");
+        tourSearchForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            // Here you would typically send the form data to a server
+            alert(
+                "Thank you for your search! We will find the best tours for you."
+            );
+            tourSearchForm.reset();
+        });
+
+        // Newsletter form submission
+        const newsletterForm = document.querySelector(".newsletter-form");
+        newsletterForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const emailInput = newsletterForm.querySelector("input");
+            alert(`Thank you for subscribing with ${emailInput.value}!`);
+            emailInput.value = "";
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+            anchor.addEventListener("click", function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute("href");
+                if (targetId === "#") return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: "smooth",
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
